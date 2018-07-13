@@ -42,27 +42,33 @@ class ViewController: UIViewController {
     @objc func handlelongPress(gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == .began {
-            let location = gesture.location(in: self.view)
-            view.addSubview(iconContainerView)
-            print(location)
+           
             
-            
-            self.iconContainerView.transform = CGAffineTransform(translationX: (self.view.frame.size.width - iconContainerView.frame.width)/2, y: location.y)
-            self.iconContainerView.alpha = 0
-            
-            
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-                self.iconContainerView.alpha = 1
-                
-                self.iconContainerView.transform = CGAffineTransform(translationX: (self.view.frame.size.width - self.iconContainerView.frame.width)/2, y: location.y - self.iconContainerView.frame.height)
-                
-            }, completion: nil)
-            
+            handlelongPress(gesture: gesture)
             
         } else if gesture.state == .ended {
             iconContainerView.removeFromSuperview()
         }
     }
     
+    fileprivate func hangleGestureBegan(gesture : UILongPressGestureRecognizer) {
+        
+        view.addSubview(iconContainerView)
+        let location = gesture.location(in: self.view)
+        
+        print(location)
+        
+        
+        self.iconContainerView.transform = CGAffineTransform(translationX: (self.view.frame.size.width - iconContainerView.frame.width)/2, y: location.y)
+        self.iconContainerView.alpha = 0
+        
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            self.iconContainerView.alpha = 1
+            
+            self.iconContainerView.transform = CGAffineTransform(translationX: (self.view.frame.size.width - self.iconContainerView.frame.width)/2, y: location.y - self.iconContainerView.frame.height)
+            
+        }, completion: nil)
+    }
 }
 
